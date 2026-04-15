@@ -1,0 +1,212 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Restaurant API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: menu
+    description: Menu operations
+  - name: reservations
+    description: Reservation operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /menu:
+    get:
+      operationId: getMenu
+      tags: [menu]
+      summary: Get all menu items
+      description: Returns all menu items grouped by category
+      responses:
+        "200":
+          description: List of menu items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MenuItem"
+  /menu/categories:
+    get:
+      operationId: getMenuCategories
+      tags: [menu]
+      summary: Get menu categories
+      description: Returns distinct menu categories
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /reservations:
+    post:
+      operationId: createReservation
+      tags: [reservations]
+      summary: Create a reservation
+      description: Creates a new reservation and user if not existing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReservationInput"
+      responses:
+        "201":
+          description: Reservation created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reservation"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /reservations/check:
+    get:
+      operationId: checkAvailability
+      tags: [reservations]
+      summary: Check table availability
+      description: Check if tables are available for a given date and time
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: time
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: guests
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Availability status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailabilityResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    MenuItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: string
+        category:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+      required:
+        - id
+        - name
+        - description
+        - price
+        - category
+    CreateReservationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        guests:
+          type: integer
+        specialRequests:
+          type: ["string", "null"]
+      required:
+        - name
+        - email
+        - phone
+        - date
+        - time
+        - guests
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        date:
+          type: string
+        time:
+          type: string
+        guests:
+          type: integer
+        specialRequests:
+          type: ["string", "null"]
+        status:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - date
+        - time
+        - guests
+        - status
+        - createdAt
+    AvailabilityResponse:
+      type: object
+      properties:
+        available:
+          type: boolean
+        message:
+          type: string
+      required:
+        - available
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

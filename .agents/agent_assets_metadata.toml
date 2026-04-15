@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "YvaV3NB34fwrddaHkcA9y"
+uri = "file://artifacts/restaurant/public/images/hero.png"
+type = "image"
+title = "Hero restaurant interior"
+
+[[generated]]
+id = "nkdd_sySJdx1DG9Ic-KSQ"
+uri = "file://artifacts/restaurant/public/images/about.png"
+type = "image"
+title = "Chef plating dish"
+
+[[generated]]
+id = "UMr5byxpaXz20ide9dnj0"
+uri = "file://artifacts/restaurant/public/images/menu-deco.png"
+type = "image"
+title = "Luxury cocktail or dish"
