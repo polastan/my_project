@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "YvaV3NB34fwrddaHkcA9y"
@@ -18,3 +17,9 @@ id = "UMr5byxpaXz20ide9dnj0"
 uri = "file://artifacts/restaurant/public/images/menu-deco.png"
 type = "image"
 title = "Luxury cocktail or dish"
+
+[[outputs]]
+id = "cR_9GfIFsXBkFDCtpWHFt"
+uri = "file://Poyasnitelnaya_zapiska_Noir.docx"
+type = "word_document"
+title = "Пояснительная записка — Сайт ресторана «Noir»"
