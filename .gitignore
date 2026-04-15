@@ -47,12 +47,4 @@ Thumbs.db
 # Replit
 .cache/
 .local/
-.agents/
 project.zip
-Poyasnitelnaya_zapiska_Starostin_1776258586767.docx
-
-# Служебные папки Replit (не нужны для проекта)
-**/.replit-artifact/
-artifacts/mockup-sandbox/
-scripts/
-attached_assets/
